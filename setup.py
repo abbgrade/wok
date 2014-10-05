@@ -1,12 +1,16 @@
 #!/usr/bin/env python2
 
 from setuptools import setup
-
 from wok import version
+import sys
+
+extra = {}
+if sys.version_info >= (3,):
+    extra['use_2to3'] = True
 
 setup(
     name='wok',
-    version=version.encode("utf8"),
+    version=str(version.encode("utf8")),
     author='Mike Cooper',
     author_email='mythmon@gmail.com',
     url='http://wok.mythmon.com',
@@ -25,14 +29,16 @@ setup(
         'Programming Language :: Python',
     ],
     install_requires=[
-        'Jinja2==2.6',
-        'Markdown==2.1.1',
-        'PyYAML==3.10',
-        'Pygments==1.4',
-        'docutils==0.8.1',
-        'awesome-slugify==1.4',
-        'pytest==2.5.2',
+        'Jinja2>=2.6',
+        'Markdown>=2.1.1',
+        'PyYAML>=3.10',
+        'Pygments>=1.4',
+        'docutils>=0.8.1',
+        'awesome-slugify>=1.4',
+        'pytest>=2.5.2',
     ],
     packages=['wok'],
     scripts=['scripts/wok'],
+    test_suite='tests',
+    **extra
 )

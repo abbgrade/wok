@@ -4,4 +4,4 @@ if [[ $PYTHON_TESTS == "false" ]]; then
   exit 0
 fi
 
-py.test wok
+py.test wok tests
