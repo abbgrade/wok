@@ -5,6 +5,7 @@ from collections import namedtuple
 from datetime import datetime, date, time
 import logging
 import copy
+import codecs
 
 # Libraries
 import jinja2
@@ -84,8 +85,8 @@ class Page(object):
         page.path = path
         page.filename = os.path.basename(path)
 
-        with open(path, 'rU') as f:
-            page.original = f.read().decode('utf-8')
+        with codecs.open(path, 'r', encoding='utf-8') as f:
+            page.original = f.read()
             splits = page.original.split('\n---\n')
 
             if len(splits) > 3:
@@ -489,9 +490,8 @@ class Page(object):
         logging.info('writing to {0}'.format(base_path))
 
         logging.debug('Writing {0} to {1}'.format(self.meta['slug'], base_path))
-        f = open(base_path, 'w')
-        f.write(self.rendered.encode('utf-8'))
-        f.close()
+        with codecs.open(base_path, 'w', encoding='utf-8') as f:
+            f.write(self.rendered)
 
     def __repr__(self):
         return "&lt;wok.page.Page '{0}'&gt;".format(self.meta['slug'])
